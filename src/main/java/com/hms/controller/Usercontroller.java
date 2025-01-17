@@ -1,11 +1,11 @@
 package com.hms.controller;
 
+import com.hms.ThirdpartyService.JwtService;
 import com.hms.entity.User;
 import com.hms.repo.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hms.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,9 +13,13 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class Usercontroller {
     private UserRepository userRepository;
+    private JwtService jwtService;
+    private UserService userService;
 
-    public Usercontroller(UserRepository userRepository) {
+    public Usercontroller(UserRepository userRepository, JwtService jwtService, UserService userService) {
         this.userRepository = userRepository;
+        this.jwtService=jwtService;
+        this.userService=userService;
     }
 
     //show all user
@@ -26,7 +30,21 @@ public class Usercontroller {
     }
     //create user
     @PostMapping("/create")
-    private User createUser(User user){
+    private User createUser(@RequestBody User user){
+        String hashpw = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(5));
+        user.setPassword(hashpw);
         return userRepository.save(user);
     }
+    @GetMapping("/login")
+    public String veryfytoken(@RequestBody User user){
+        User user1 = userRepository.getByName(user.getName()).get();
+        boolean checkpw = BCrypt.checkpw(user.getPassword(), user1.getPassword());
+        if(checkpw){
+            String token = jwtService.generateToken(user1.getName());
+            return token;
+        }
+        return "Invalid User";
+
+    }
+
 }
