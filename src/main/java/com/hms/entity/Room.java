@@ -1,5 +1,6 @@
 package com.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,48 +18,24 @@ public class Room {
 
     private LocalDate avl_date;
 
-
-
     private Double price;
 
-    private Integer bedcount;
+    private Integer  maxguestAllowed;
+
+    @Column(name = "roomstatus", nullable = false)
+    private boolean roomstatus;
 
     @ManyToOne
     @JoinColumn(name = "property_id")
+    @JsonIgnore
     private Property property;
 
-    public Property getProperty() {
-        return property;
+    public Long getId() {
+        return id;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
-    public Integer getBedcount() {
-        return bedcount;
-    }
-
-    public void setBedcount(Integer bedcount) {
-        this.bedcount = bedcount;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-
-
-    public LocalDate getAvl_date() {
-        return avl_date;
-    }
-
-    public void setAvl_date(LocalDate avl_date) {
-        this.avl_date = avl_date;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -69,12 +46,43 @@ public class Room {
         this.type = type;
     }
 
-    public Long getId() {
-        return id;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
+    public LocalDate getAvl_date() {
+        return avl_date;
+    }
+
+    public void setAvl_date(LocalDate avl_date) {
+        this.avl_date = avl_date;
+    }
+
+    public Integer getMaxguestAllowed() {
+        return maxguestAllowed;
+    }
+
+    public void setMaxguestAllowed(Integer maxguestAllowed) {
+        this.maxguestAllowed = maxguestAllowed;
+    }
+
+    public boolean isRoomstatus() {
+        return roomstatus;
+    }
+
+    public void setRoomstatus(boolean roomstatus) {
+        this.roomstatus = roomstatus;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
 }

@@ -34,7 +34,7 @@ public class RoomService {
     }
 
 
-    public List<Room> searchroom(Double minPrice, Double maxPrice, Integer bedCount, String type,LocalDate startDate, LocalDate endDate) {
-       return roomRepository.searchRooms(minPrice, maxPrice, bedCount, type, startDate, endDate);
-    }
+//    public List<Room> searchroom(Double minPrice, Double maxPrice, Integer avilrooms, String type,LocalDate startDate, LocalDate endDate) {
+//       return roomRepository.searchRooms(minPrice, maxPrice, avilrooms, type, startDate, endDate);
+//    }
 }

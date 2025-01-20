@@ -27,16 +27,16 @@ public class RoomController {
         return roomService.createroom(room, id);
     }
 
-    @GetMapping("/search")
-    public List<Room> searchRooms(
-            @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice,
-            @RequestParam(required = false) Integer bedCount,
-            @RequestParam(required = false) String type,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-
-        return roomService.searchroom( minPrice, maxPrice, bedCount, type, startDate, endDate);
-    }
+//    @GetMapping("/search")
+//    public List<Room> searchRooms(
+//            @RequestParam(required = false) Double minPrice,
+//            @RequestParam(required = false) Double maxPrice,
+//            @RequestParam(required = false) Integer avilrooms,
+//            @RequestParam(required = false) String type,
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+//
+//        return roomService.searchroom( minPrice, maxPrice, avilrooms, type, startDate, endDate);
+//    }
 
 }

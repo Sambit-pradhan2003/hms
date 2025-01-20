@@ -1,6 +1,12 @@
 package com.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "property")
@@ -15,12 +21,20 @@ public class Property {
     @Column(name = "about")
     private String about;
 
-    public String getAbout() {
-        return about;
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    //@JsonIgnore
+    private List<Room> rooms = new ArrayList<>();
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,12 +45,27 @@ public class Property {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public String getAbout() {
+        return about;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 }

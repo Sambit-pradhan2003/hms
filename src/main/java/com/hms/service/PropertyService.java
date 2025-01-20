@@ -4,6 +4,7 @@ import com.hms.entity.Property;
 import com.hms.repo.PropertyRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,4 +23,9 @@ public class PropertyService {
     public Property addProperty(Property property) {
         return propertyRepository.save(property);
     }
+
+    public List<Property> searchProperties(LocalDate startDate, LocalDate endDate, String city, String propertyName) {
+        return propertyRepository.searchProperties(startDate, endDate, city, propertyName);
+    }
 }
+
